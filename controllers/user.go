@@ -7,6 +7,9 @@ import (
 	"strconv"
 
 	"github.com/go_cli/models"
+	"golang.org/x/text/language"
+	"golang.org/x/text/message"
+	"golang.org/x/text/number"
 )
 
 type userController struct {
@@ -53,6 +56,8 @@ func (uc *userController) getAll(w http.ResponseWriter, r *http.Request) {
 }
 
 func (uc *userController) get(id int, w http.ResponseWriter) {
+	p := message.NewPrinter(language.English)
+	p.Printf("%v bottles of beer on the wall.", number.Decimal(1234))
 	u, err := models.GetUserByID(id)
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
